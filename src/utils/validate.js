@@ -28,6 +28,12 @@ export function validatePsswd(value){
  * 验证验证码
  */
 export function validateCd(value){
-    let reg = /^[0-9]{6}$/;
+    // let reg = /^(?!\D+$)(?![^a-zA-Z]+$)\S{6}$/
+    let reg = /^[a-z0-9]{6}$/;
     return !reg.test(value) ? true : false
 }
+
+/**
+ * 部使用export default时，可以同时声明多个export
+ * 文件 import 需要花括号，
+ */
