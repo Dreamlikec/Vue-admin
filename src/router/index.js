@@ -14,7 +14,6 @@ const routes = [
     hidden: true,
     meta: {
       name: "主页",
-
     }
   },
   {
@@ -61,13 +60,20 @@ const routes = [
       },
       component: () => import("../views/Info/index.vue"),
     },{
-
       path: "/infoCategory",
       name: "infoCategory",
       meta: {
         name: "信息分类",
       },
       component: () => import("../views/Info/category.vue"),
+    },{
+      path: "/infoDetailed",
+      name: "infoDetailed",
+      hidden:true,
+      meta: {
+        name: "信息详情",
+      },
+      component: () => import("../views/Info/detailed.vue"),
     },
     ]
   },

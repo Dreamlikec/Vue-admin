@@ -8,7 +8,7 @@ router.beforeEach((to, from, next) => {
     // getToken 判断token是否存在
     if (getToken()) {
         // 路由动态田间，分配菜单，每个角色分配不同的菜单
-        console.log('存在');
+        // console.log('存在');
         if (to.path == '/login') {
             removeToken();
             removeUserName();

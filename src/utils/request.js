@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { outputDir } from '../../vue.config';
-import {message, Message} from 'element-ui'
+import {message, Message} from 'element-ui';
+import {getToken,getUserName} from "@/utils/app";
 
 // 创建axios，付给变量service
 // 手把手撸码前端的地址API，地址: http://www.web-jshtml.cn/productapi
@@ -16,7 +17,9 @@ const service = axios.create({
 service.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     // Tokey userId sui 后台需要前端这边传送相关参数（在请求头添加参数）
-    // config.headers['Tokey'] = '111'
+    config.headers['Tokey'] = getToken()
+    config.headers['UserName'] = getUserName()
+
     return config;
   }, function (error) {
     // 对请求错误做些什么
