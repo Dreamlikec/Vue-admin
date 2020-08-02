@@ -1,0 +1,64 @@
+.el-submenu .el-menu-item{
+    &.is-active {background-color: $mainColor !important;}
+    font-size: 14px;
+    padding-left: 55px !important;
+}
+li.el-submenu{
+    &.is-active.is-opened .el-submenu__title{
+        background-color: rgba(52,74,95,0.2) !important;
+        color: $viceColor !important;
+    }
+}
+
+.close {
+    .el-submenu{
+      &.is-opened{
+        > .el-submenu__title{
+          background-color: $mainColor !important;
+        }
+      }
+    }
+  }
+.el-menu--vertical{
+    .el-menu-item{
+        line-height: 56px;
+    }
+    .el-menu-item:hover{
+        background-color: $mainColor !important;
+    }
+    .el-menu{
+        padding:0px
+    }
+}
+
+// table的样式
+div.el-table {
+  td, th{
+    text-align: center;
+  }
+  th{
+    font-weight: bold;
+    color: $viceColor
+  }
+}
+.el-dialog__body{
+  padding:30px 47px !important;
+}
+.el-dialog__footer{
+  text-align: center !important;
+  padding-bottom: 50px !important;
+  .el-button {
+    width: 150px; 
+    margin: 0 11px !important;
+  }
+}
+div.el-form-item{
+  margin-bottom: 22px;
+}
+
+// form 样式
+.el-form{
+  .el-form-item:last-child{
+    margin-bottom: 0 !important;
+  }
+}

@@ -1,0 +1,18 @@
+@import "./normalize.scss";
+@import "./config.scss";
+@import "./elementui.scss";
+
+.pull-left { float:left !important;}
+.pull-right { float:right !important;}
+.blanck-space-30{
+    height: 30px;
+}
+
+@for $i from 1 through 110 {
+    .margin-left-right-#{$i} {
+        margin-left:(1px * $i);
+        margin-right:(1px * $i);
+    }
+    // .padding-top-#{$i} {padding-top:(1px * $i)}
+    // .padding-bottom-#{$i} {padding-bottom:(1px*$i)}
+}
