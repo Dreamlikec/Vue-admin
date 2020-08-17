@@ -2,10 +2,7 @@
     <div id="main-wrap">
         <div class = "main-content">
             <div class = "content" v-if="ifshowfunction()">
-                <keep-alive include="buildingInfo">
-                    <component :is="currentview">
                         <router-view/>
-                    </component>   
                 </keep-alive> 
             </div>
             <div v-else>

@@ -29,6 +29,7 @@ const routes = [
     path: "/console",
     name: "Console",
     redirect: "index",
+    hidden:true,
     meta: {
       name: '控制台',
       icon: "console"
@@ -72,6 +73,7 @@ const routes = [
   {
     path: "/info",
     name: "Info",
+    hidden:true,
     meta: {
       name: '信息管理',
       icon: "info"
@@ -105,7 +107,7 @@ const routes = [
   {
     path: "/user",
     name: "User",
-
+    hidden:true,
     meta: {
       name: '用户管理',
       icon: "user"
