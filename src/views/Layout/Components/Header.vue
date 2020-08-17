@@ -44,7 +44,7 @@ export default {
 <style lang='scss' scoped>
 @import "../../../styles/config.scss";
 #header-wrap {
-  background-color: #344a5f;
+  background-color: $viceColor;
   position: fixed;
   left: $navMenu;
   right: 0;

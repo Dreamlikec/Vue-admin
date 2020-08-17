@@ -7,6 +7,9 @@
 .blanck-space-30{
     height: 30px;
 }
+.blanck-space-50{
+    height: 50px;
+}
 
 @for $i from 1 through 110 {
     .margin-left-right-#{$i} {
@@ -16,3 +19,7 @@
     // .padding-top-#{$i} {padding-top:(1px * $i)}
     // .padding-bottom-#{$i} {padding-bottom:(1px*$i)}
 }
+
+// overflow
+.over-flow-h {overflow:hidden}
+

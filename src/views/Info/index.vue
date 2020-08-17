@@ -39,15 +39,7 @@
         <div class="label-wrap key-word">
           <label for>关键字：</label>
           <div class="wrap-content">
-            <el-select v-model="search_key" style="width:100%">
-              <el-option
-                v-for="item in search_Options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                :disabled="item.disabled"
-              ></el-option>
-            </el-select>
+            <SelectVue :config="data.configOption"/>
           </div>
         </div>
       </el-col>
@@ -77,7 +69,7 @@
       style="width: 100%; "
     >
       <el-table-column type="selection" width="45"></el-table-column>
-      <el-table-column prop="title" label="标题" width="600"></el-table-column>
+      <el-table-column prop="title" label="标题" width="500"></el-table-column>
       <el-table-column prop="categoryId" label="类型" width="130" :formatter="toCategory"></el-table-column>
 
       <el-table-column prop="createDate" label="日期" width="237" :formatter="toDate"></el-table-column>
@@ -153,12 +145,17 @@ import {
   watch
 } from "@vue/composition-api";
 import { timestampToTime } from "@/utils/common";
-
+import SelectVue from "@c/Select";
 
 export default {
   name: "infoIndex",
-  components: { DialogInfo, DialogEditInfo },
+  components: { DialogInfo, DialogEditInfo,SelectVue },
   setup(props, context) {
+    const data = reactive({
+      configOption:{
+        init:["id","title"]
+      }
+    })
     const { getInfoCategory, categoryItem } = common();
     const { confirm } = global();
     const dialog_Info = ref(false);
@@ -178,7 +175,7 @@ export default {
     const date_Value = ref("");
     const search_keyWork = ref("");
     const total = ref(0);
-
+    
     const infoId = ref("");
     // loading
     const loadingData = ref(false);
@@ -232,9 +229,9 @@ export default {
           sessionKey:"infoId",
           session:true
         },
-        tittle:{
+        title:{
           value:data.title,
-          sessionKey:"infoTitle",
+          sessionKey:"infoId",
           session:true
         },
       });
@@ -374,6 +371,7 @@ export default {
       loadingData,
       infoId,
       // reactive
+      data,
       options,
       search_Options,
       category_Value,

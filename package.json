@@ -12,13 +12,20 @@
     "axios": "^0.19.2",
     "cookie_js": "^1.4.0",
     "core-js": "^3.6.5",
+    "echarts": "^4.8.0",
+    "element-resize-detector": "^1.2.1",
     "element-ui": "^2.13.2",
+    "file-saver": "^2.0.2",
+    "jquery": "^3.5.1",
     "js-sha1": "^0.6.0",
+    "juery": "^1.0.0",
+    "module": "^1.2.5",
     "svg-sprite-loader": "^5.0.0",
     "vue": "^2.6.11",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "xlsx": "^0.16.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",

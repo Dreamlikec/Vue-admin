@@ -3,7 +3,11 @@
     <router-view></router-view>
   </div>
 </template>
-
+<script>
+import { reactive, computed } from '@vue/composition-api'
+export default {
+}
+</script>
 <style lang="scss">
 #app {
   // font-family: Avenir, Helvetica, Arial, sans-serif;

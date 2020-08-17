@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { outputDir } from '../../vue.config';
-import {message, Message} from 'element-ui';
+import { Message} from 'element-ui';
 import {getToken,getUserName} from "@/utils/app";
 
 // 创建axios，付给变量service
 // 手把手撸码前端的地址API，地址: http://www.web-jshtml.cn/productapi
 
-const BASEURL = process.env.NODE_ENV === 'production'? '':'/devApi';
+const BASEURL = process.env.NODE_ENV === 'production'? '/devApi':'/devApi';
 const service = axios.create({
     baseURL:BASEURL,
     timeout:15000,

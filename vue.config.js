@@ -1,7 +1,7 @@
-const path = require("path");
+const path = require("path")
 module.exports = {
   // 基本路径
-  publicPath: process.env.NODE_ENV === "production" ? "" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   // 输出文件目录
   outputDir: process.env.NODE_ENV === "production" ? "dist" : "devdist",
   // eslint-loader 是否在保存的时候检查
@@ -19,8 +19,7 @@ module.exports = {
         symbolId: "icon-[name]",
         include: ["./src/icons"]
       });
-
-  },
+    },
   configureWebpack: config => {
     config.resolve = { // 配置解析别名
       extensions: ['.js', '.json', '.vue'],
@@ -73,6 +72,14 @@ module.exports = {
         pathRewrite: {  // 路径重写，
           '^/devApi': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
         }
+      },
+      '/Django':{
+        target:"http://127.0.0.1:8000/",
+        changeOrigin:true,
+        pathRewrite:{
+          '^/Django':''
+        }
+        
       }
     },
     overlay: {
@@ -86,4 +93,4 @@ module.exports = {
    * 第三方插件配置
    */
   pluginOptions: {}
-};
+}

@@ -10,6 +10,10 @@ import "./router/permit";
 import "./icons/index";
 // 自定义全局方法
 // import global from "@/utils/global";
+import echarts from 'echarts';
+// echarts 挂载到vue的圆形上
+// import "./styles/EchartsTheme/westeros.project";
+// Vue.prototype.$echarts = echarts
 
 
 // Vue.use(global);

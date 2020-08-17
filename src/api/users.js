@@ -1,15 +1,21 @@
+import service from "@/utils/request";
 /**
- * 列表
+ * 获取列表
  */
-
+export function GetRole(data={}){
+    return service.request({
+        method: "post",
+        url: "/role/",
+        data
+    })
+}
 /**
- * 新增
+ * 添加用户
  */
-
-/**
- * 编辑
- */
-
-/**
- * 删除
- */
+export function UserAdd(data){
+    return service.request({
+        method: "post",
+        url: "/user/add/",
+        data
+    })
+}

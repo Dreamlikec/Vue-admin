@@ -10,6 +10,25 @@ li.el-submenu{
     }
 }
 
+div.el-tabs__item{
+  &.is-top.is-closable{
+    font-size: 12px !important;
+  }
+  &.is-top.is-active.is-closable{
+    font-size: 12px !important;
+  }
+}
+.el-tabs__item{
+  &.istop{
+    &.is-active{
+      &.is-closable{
+          font-size: 10px !important;
+      }
+    }
+  }
+}
+
+
 .close {
     .el-submenu{
       &.is-opened{
@@ -61,4 +80,8 @@ div.el-form-item{
   .el-form-item:last-child{
     margin-bottom: 0 !important;
   }
+}
+
+.params-wrap .el-tabs__item {
+  font-size: 10px;
 }

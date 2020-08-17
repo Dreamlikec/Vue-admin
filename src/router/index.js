@@ -45,6 +45,31 @@ const routes = [
     ]
   },
   {
+    path:"/Loads",
+    name:"Loads",
+    meta:{
+      name:"负荷估算",
+      icon:"loads"
+    },
+    component:Layout,
+    children:[{
+      path:"/buildingInfo",
+      name:"buildingInfo",
+      meta:{
+        name:"建筑信息",
+        keepAlive:true
+      },
+      component:()=> import("../views/Loads/index.vue")
+    },{
+      path:"/calresult",
+      name:"calresult",
+      meta:{
+        name:"计算结果"
+      },
+      component:()=> import("../views/Loads/CalResult.vue")
+    }]
+  },
+  {
     path: "/info",
     name: "Info",
     meta: {
