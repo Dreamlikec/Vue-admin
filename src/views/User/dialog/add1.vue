@@ -34,7 +34,7 @@
         <el-radio v-model="data.form.status" label="2">启用</el-radio>
       </el-form-item>
 
-      <el-form-item label="角色：" :label-width="data.formLabelWidth" prop="role">
+      <el-form-item label="系统：" :label-width="data.formLabelWidth" prop="role">
         <el-checkbox-group v-model="data.form.role">
           <el-checkbox
             v-for="item in data.roleItem"
@@ -42,23 +42,6 @@
             :label="item.role"
           >{{item.name}}</el-checkbox>
         </el-checkbox-group>
-      </el-form-item>
-
-      <el-form-item label="按钮：" :label-width="data.formLabelWidth">
-        <template v-if="data.btnPerm.length > 0">
-          <div v-for="item in data.btnPerm">
-            <h4>{{item.name}}</h4>
-            <template v-if="item.perm && item.perm.length > 0">
-              <el-checkbox-group v-model="data.form.btnPerm">
-                <el-checkbox
-                  v-for="buttons in item.perm"
-                  :key="buttons.value"
-                  :label="buttons.value"
-                >{{buttons.name}}</el-checkbox>
-              </el-checkbox-group>
-            </template>
-          </div>
-        </template>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -77,7 +60,7 @@ import {
   onBeforeMount
 } from "@vue/composition-api";
 import CityPicker from "@c/CityPicker";
-import { GetRole, UserAdd, UserEdit, GetPermButton } from "@/api/users";
+import { GetSystem, UserAdd, UserEdit, GetPermButton } from "@/api/users";
 import {
   stripscript,
   validateEmail,
@@ -153,9 +136,6 @@ export default {
       // 城市数据
       cityPickerData: {},
       formLabelWidth: "90px",
-      // 按钮权限
-      btnPerm: [],
-      // 按钮加载
       submitLoading: false,
       form: {
         username: "",
@@ -164,10 +144,10 @@ export default {
         phone: "",
         region: "",
         status: "1",
-        role: [],
-        btnPerm: []
+        role: []
       },
-
+      // 按钮权限
+      btnPerm:[],
       // 验证规则
       rules: reactive({
         username: [{ validator: validateUsername, trigger: "blur" }],
@@ -177,21 +157,10 @@ export default {
     });
 
     // 请求角色
-    const getRole = () => {
-      // 当请求过了之后无需再次请求
-      // if (data.roleItem.length > 0 && data.btnPerm.length > 0) {
-      //   return false;
-      // }
-      if (data.roleItem.length === 0) {
-          GetRole().then(response => {
-          data.roleItem = response.data.data;
-        });
-      }
-      if (data.btnPerm.length === 0) {
-          GetPermButton().then(response => {
-          data.btnPerm = response.data.data;
-        });
-      }
+    const getSystem = () => {
+      GetSystem().then(response => {
+        data.roleItem = response.data.data;
+      });
     };
 
     // watch 监听
@@ -208,19 +177,21 @@ export default {
     // 窗口打开时调用接口
     const openDialog = () => {
       // 角色请求
-      getRole();
+      getSystem();
       // 初始值处理
       let editData = props.editData;
       if (editData.id) {
         // 编辑
-        editData.role = editData.role ? editData.role.split(",") : []; //将字符串拼成数组
-        editData.btnPerm = editData.btnPerm ? editData.btnPerm.split(",") : [];
+        editData.role = editData.role.split(",");
         for (let key in editData) {
           data.form[key] = editData[key];
         }
       } else {
         // 添加
         data.form.id && delete data.form.id;
+      }
+      for (let key in editData) {
+        data.form[key] = data.form.id ? editData[key] : "";
       }
     };
     const resetForm = () => {
@@ -237,15 +208,15 @@ export default {
           let requestData = Object.assign({}, data.form);
           requestData.role = requestData.role.join(); //数组转成字符串，默认是以逗号隔开的
           requestData.region = JSON.stringify(data.cityPickerData);
-          requestData.btnPerm = requestData.btnPerm.join();
+          
           // 添加状态，需要密码需要加密
           // 编辑状态，有值存在，需要密码并加密，否则删除
 
           if (requestData.id) {
-            if (requestData.password) {
-              requestData.password = sha1(requestData.password);
-            } else {
-              delete requestData.password;
+            if(requestData.password){
+              requestData.password = sha1(requestData.password)
+            }else{
+              delete requestData.password
             }
             userEdit(requestData);
           } else {
@@ -270,7 +241,7 @@ export default {
       });
     };
     const userEdit = requestData => {
-      UserEdit(requestData).then(response => {
+        UserEdit(requestData).then(response => {
         let resData = response.data;
         root.$message({
           message: resData.message,
@@ -290,7 +261,7 @@ export default {
       close,
       openDialog,
       submit,
-      getRole
+      getSystem
     };
   }
 };

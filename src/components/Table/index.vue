@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="data.tableData" border style="width: 100%">
+    <el-table :data="data.tableData" border style="width: 100%" @selection-change="thatSelectionCheckbox">
       <!-- 多选框 -->
       <el-table-column v-if="data.tableConfig.selection" type="selection" with="55"></el-table-column>
       <!-- 文本数据渲染 -->
@@ -20,17 +20,28 @@
         <el-table-column :key="item.field" :prop="item.field" :label="item.label" v-else></el-table-column>
       </template>
     </el-table>
-    <el-pagination
-      v-if="data.tableConfig.paginationShow"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="pageData.currentPage"
-      :page-sizes="pageData.pageSizes"
-      :page-size="pageData.pageSize"
-      :layout="data.tableConfig.paginationLayout"
-      :total="pageData.total"
-      background
-    ></el-pagination>
+    <div class="table-footer">
+      <el-row>
+        <el-col :span="4">
+            <slot name="tableFooterLeft"></slot>
+        </el-col>
+        <el-col :span="20">
+          <el-pagination
+            class="pull-right"
+            v-if="data.tableConfig.paginationShow"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="pageData.currentPage"
+            :page-sizes="pageData.pageSizes"
+            :page-size="pageData.pageSize"
+            :layout="data.tableConfig.paginationLayout"
+            :total="pageData.total"
+            background
+          ></el-pagination>
+        </el-col>
+      </el-row >
+    </div>
+
   </div>
 </template>
 <script>
@@ -54,9 +65,13 @@ export default {
     config: {
       type: Object,
       default: () => {}
+    },
+    tableRow:{
+      type: Object,
+      default: () => {}
     }
   },
-  setup(props, { root }) {
+  setup(props, { root,emit,refs }) {
     // 加载数据
     const { tableData, tableLoadData } = LoadData({ root });
     const {
@@ -96,7 +111,6 @@ export default {
             requestData.data.pageSize = pageSize;
             tableLoadData(data.tableConfig.requestData)
         }
-
         
     })
 
@@ -107,6 +121,28 @@ export default {
         if (keys.includes(key)) data.tableConfig[key] = configData[key];
       }
     };
+    // 刷新数据
+    const refreshData = () =>{
+      tableLoadData(data.tableConfig.requestData);
+    }
+    // 带参数刷新数据
+    const paramsLoadData = (params) =>{
+      let requestData = Object.assign({},params,{
+        pageNumber:1,
+        pageSize:10
+      })
+      data.tableConfig.requestData.data = requestData
+      console.log(requestData)
+      tableLoadData(data.tableConfig.requestData)
+    }
+
+    // 勾选checkbox时候触发
+    const thatSelectionCheckbox = (val) =>{
+      let rowData = {
+        idItem:val.map(item =>item.id)
+      }
+      emit("update:tableRow",rowData);
+    }
     onBeforeMount(() => {
       initTableConfig();
       tableLoadData(data.tableConfig.requestData);
@@ -117,10 +153,16 @@ export default {
       pageData,
       handleSizeChange,
       handleCurrentChange,
-      totalCount
+      totalCount,
+      thatSelectionCheckbox,
+      refreshData,
+      paramsLoadData
     };
   }
 };
 </script>
 <style lang="scss" scoped>
+.table-footer{
+  padding:15px 0,
+}
 </style>

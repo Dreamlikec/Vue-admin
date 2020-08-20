@@ -12,15 +12,9 @@
 <script>
 
 import { exportExcel } from "@/utils/common";
-import { reactive, onMounted } from "@vue/composition-api";
+import { reactive, onMounted, onActivated, watch, onUpdated, computed,inject } from "@vue/composition-api";
 export default {
   name: "LoadsTable",
-  props:{
-    config:{
-      type:Object,
-      default:()=>{}
-    }
-  },
   setup(props, { root }) {
     const data = reactive({
       configTable: {
@@ -70,7 +64,6 @@ export default {
     const formatTable = ()=>{
       var resData = data.configTable.res['resultData']
       let _resList = []
-      let _tableData =  data.configTable.tableData
       Object.keys(resData).forEach((key,index)=>{
         let _obj = {
           title:key,
@@ -85,6 +78,8 @@ export default {
         }
         _resList.push(_obj)
       })
+      // 定义一个新的数组将参数头和结果拼接起来
+      let _tableData = []
       let loadsHeader = root.$store.state.loads.loadsHeader
       for(var i =0;i<_resList.length;i++){
         _tableData.push(Object.assign(_resList[i],loadsHeader[i]))
@@ -131,6 +126,7 @@ export default {
         }
         _tableData.push(_totalobj)
       }
+      data.configTable.tableData = _tableData
     }
     const loadsDismantling = () =>{
       let _tableData = data.configTable.tableData
@@ -180,8 +176,9 @@ export default {
       }
     }
 
-    onMounted(()=>{
-      // data.res = props.config
+
+    watch(()=> root.$store.getters["loads/resultData"],()=>{
+      data.configTable.res =  root.$store.getters["loads/resultData"]
       formatTable()
       loadsDismantling()
     })

@@ -17,7 +17,6 @@ import echarts from 'echarts';
 
 export function exportExcel(id) {
     let et = XLSX.utils.table_to_book(document.querySelector(`#${id}`)); //此处传入table的DOM节点
-    console.log(11,et);
     let etout = XLSX.write(et, { 
       bookType: 'xlsx', 
       bookSST: true, 

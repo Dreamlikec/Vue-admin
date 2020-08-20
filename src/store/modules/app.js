@@ -6,12 +6,16 @@ const state = {
     // isCollapse: JSON.parse(Cookie.get("isCollapse")) || false,
     to_ken:'',
     username:getUserName() || "",
+    roles:[],
+    buttonPermission:[]
 }
 const getters = {
     // 类似于computed
     isCollapse: state => state.isCollapse,
     // count:state => state.count +10
-    username:state => state.username
+    username:state => state.username,
+    roles:state => state.roles,
+    buttonPermission:state => state.buttonPermission,
 }
 const mutations = {
     SET_COLLAPSE(state) {
@@ -27,14 +31,18 @@ const mutations = {
     SET_USERNAME(state,value){
         state.username = value
     },
-
-
+    SET_ROLES(state,value){
+        state.roles = value
+    },
+    SET_BUTTON(state,value){
+        state.buttonPermission = value
+    },
+    
 }
 const actions = {
     login(content, repuestData) {
         return new Promise((resolve, reject) => {
             Login(repuestData).then((response) => {
-                console.log(content);
                 let data = response.data.data;
                 // token username 需要存储到state中
                 content.commit('SET_TOKEN',data.token);
@@ -54,6 +62,7 @@ const actions = {
             removeUserName();
             content.commit('SET_TOKEN','');
             content.commit('SET_USERNAME','');
+            content.commit('SET_ROLES',[])
             resolve()
         })
 

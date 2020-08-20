@@ -34,7 +34,7 @@
   </el-form>
 </template>
 <script>
-import {reactive,ref,isRef,toRefs,onMounted,watch} from "@vue/composition-api";
+import {reactive,ref,isRef,toRefs,onMounted,watch, onActivated} from "@vue/composition-api";
 
 import { timestampToTime } from "@/utils/common";
 import { common,QiniuToken } from "@/api/common";
@@ -143,14 +143,19 @@ export default {
             data.uploadKey.token = response.data.token
         })
     }
+    // 第一次进入时回同时进入Mounted和Actived,第二次进入只进入到active
     onMounted(() => {
       // 获取分类
       root.$store.dispatch("common/getCategory").then(response => {
         data.category = response;
       });
       data.category = categoryItem;
-      getInfo();
+      // getInfo();
     });
+    onActivated(()=>{
+      data.id = root.$route.params.id || root.$store.getters["infoDetailed/infoId"];
+      getInfo();
+    })
 
     return {
       uploadImgConfig,

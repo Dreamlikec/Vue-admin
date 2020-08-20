@@ -3,7 +3,7 @@ import { outputDir } from '../../vue.config';
 import { Message} from 'element-ui';
 import {getToken,getUserName} from "@/utils/app";
 
-const CALURL = process.env.NODE_ENV === 'production'? '/':'/Django';
+const CALURL = process.env.NODE_ENV === 'production'? '/Django':'/Django';
 const service = axios.create({
     baseURL:CALURL,
     timeout:200000,

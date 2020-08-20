@@ -15,7 +15,7 @@ export function paginationHook(){
         pageData.pageSize = val
     }
     const handleCurrentChange = (val)=>{
-        pageDaga.currentPage =val
+        pageData.currentPage =val
     }
 
     return{

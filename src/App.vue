@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+
+        <router-view/>
+
   </div>
 </template>
 <script>
-import { reactive, computed } from '@vue/composition-api'
+import { reactive, computed, onActivated ,deActivated, onDeactivated} from '@vue/composition-api'
 export default {
+
 }
 </script>
 <style lang="scss">
@@ -15,6 +18,7 @@ export default {
   // -moz-osx-font-smoothing: grayscale;
   // text-align: center;
   // color: #2c3e50;
+  
 }
 
 // #nav {

@@ -5,7 +5,7 @@ import { Message } from "element-ui";
 export function validateParamsfun(){
     const ParamsData = reactive({
         coldRegion:["北京","青岛","徐州","临沂"],
-        shwcRegion:["南京","武汉","长沙"],
+        shwcRegion:["南京","武汉","长沙","上海"],
         coldRegionData:{
             AC:{
                 min:0.1,
@@ -91,6 +91,7 @@ export function validateParamsfun(){
             "武汉":["2019-11-15","2020-3-15"],
             "长沙":["2019-11-15","2020-3-15"],
             "南京":["2019-11-15","2020-3-15"],
+            "上海":["2019-11-15","2020-2-15"],
         },
         clRange:{
             "北京":["2019-6-15","2020-9-15"],
@@ -100,6 +101,7 @@ export function validateParamsfun(){
             "武汉":["2019-6-15","2020-9-15"],
             "长沙":["2019-6-15","2020-9-15"],
             "南京":["2019-6-15","2020-9-15"],
+            "上海":["2019-6-15","2020-9-30"],
         },
         RecomParams:{
             "青岛":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.2",glz_s:"0.4",AC:"0.1",uw:"0.5",uf:"1.2",shgc:"0.6",sum_point:"25",win_point:"18"}},

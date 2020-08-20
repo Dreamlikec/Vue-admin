@@ -8,8 +8,8 @@ const state = {
         clper:[],
         htper:[]
     },
-    paramsData:JSON.parse(sessionStorage.getItem("paramsData")),
-    resultData:JSON.parse(sessionStorage.getItem("resultData"))
+    // paramsData:
+    resultData:{}
 }
 const getters = {
     loadsHeader: state => state.loadsHeader,

@@ -11,7 +11,7 @@
               </div>
               <el-select placeholder="请选择城市" size="small" v-model="data.city">
                 <el-option value="北京"></el-option>
-                <el-option value="上海" disabled></el-option>
+                <el-option value="上海"></el-option>
                 <el-option value="深圳" disabled></el-option>
                 <el-option value="青岛"></el-option>
                 <el-option value="徐州"></el-option>
@@ -115,7 +115,7 @@
 import {CalLoads} from "@/api/calLoads";
 import $ from "jquery";
 import {validateParamsfun} from "@/utils/validatebuildparams";
-import { reactive, watch, watchEffect,ref} from "@vue/composition-api";
+import { reactive, watch, watchEffect,ref, provide} from "@vue/composition-api";
 import { quillEditor } from "vue-quill-editor"; // 调用富文本编辑器
 // import "quill/dist/quill.snow.css"; // 富文本编辑器外部引用样式  三种样式三选一引入即可
 // import "quill/dist/quill.core.css";
@@ -126,6 +126,7 @@ export default {
   name: "buildingInfo",
   setup(props, {root}) {
     const loadingData = ref(false)
+    const routers = reactive(root.$router.options.routes)
     const data = reactive({
       formLabelWidth: "200px",
       editableTabsValue: '1',
@@ -216,7 +217,6 @@ export default {
           buildinstance["params"] = JSON.parse(paramslist)
         }     
     }
-
     watch(()=>data.city,(val)=>{
       // 绑定参数的遍历范围
       data.region = bindRegion(val)
@@ -247,19 +247,25 @@ export default {
           buildtype:item.buildtype,
           area:item.params.area
         }))
+        // 存储请求数据的头部
         root.$store.commit("loads/SET_LOADSHEADER", loadsHeaders);
+        // 存储参数值
         root.$store.commit("loads/SET_PARAMSDATA",data)
-        console.log(root.$store.state.loads.paramsData)
+  
         CalLoads(requestData).then(response=>{
           root.$router.push({
               name: "calresult",
+              meta:{
+                hidden:false
+              },
               query:{
                 data:JSON.parse(response.data)
               }
             });
           loadingData.value = false
-          root.$store.commit("loads/SET_RESULTDATA",response)
-          console.log(root.$store.state.loads.resultData)
+          // 存储结果
+
+          root.$store.commit("loads/SET_RESULTDATA",JSON.parse(response.data))
         }).catch((err)=>{})
       }
     }
@@ -267,6 +273,7 @@ export default {
 
     return {
       data,
+      routers,
       loadingData,
       // paramsrules,
       addTab,

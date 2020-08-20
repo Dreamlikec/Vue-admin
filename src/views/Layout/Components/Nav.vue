@@ -5,16 +5,16 @@
       <span>Nice Energy</span>
     </h1>
     <el-menu
-      default-active="1-4-1"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
       background-color="transparent"
       text-color="#6c757d"
       active-text-color="#344a5f"
-      router
+      :router = true
+      :default-active = this.$route.path
     >
       <template v-for="(item, index) in routers">
-        <el-submenu v-if="!item.hidden" :key="item.id" :index="index+''">
+        <el-submenu v-if="!item.meta.hidden" :key="item.id" :index="index+''">
           <!-- 一级菜单 -->
           <template slot="title">
             <!-- <i :class="item.meta.icon"></i> -->
@@ -24,7 +24,7 @@
           <!-- 子菜单 -->
           <template v-for="subitem in item.children">
             <el-menu-item
-              v-if="!subitem.hidden"
+              v-if="!subitem.meta.hidden"
               :key="subitem.id"
               :index="subitem.path"
             >{{subitem.meta.name}}

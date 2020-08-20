@@ -7,6 +7,7 @@ import login from './modules/login';
 import common from './modules/common';
 import infoDetailed from './modules/infoDetailed';
 import loads from "./modules/loads";
+import permission from "./modules/permission";
 
 export default new Vuex.Store({
   modules:{
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     login,
     common,
     infoDetailed,
-    loads
+    loads,
+    permission
   }
 })

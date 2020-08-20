@@ -3,6 +3,7 @@ import { context } from "@vue/composition-api";
 
 export default {
     install(Vue, options) {
+        // 注册了一个全局的方法
         Vue.prototype.confirm = (params) => {
             MessageBox.confirm(params.content,params.tips||"提示", {
                 confirmButtonText: "确定",

@@ -1,12 +1,14 @@
 <template>
     <div id="main-wrap">
         <div class = "main-content">
-            <div class = "content" v-if="ifshowfunction()">
-                        <router-view/>
-                </keep-alive> 
-            </div>
-            <div v-else>
-                <router-view/>
+            <div :class="[ifshowfunction()?'content':'']" >
+                <!-- 子路由显示区域 -->
+                <keep-alive>
+                    <!-- 需要缓存 -->
+                    <router-view v-if="$route.meta.keepAlive"/>    
+                </keep-alive>
+                <!-- 不需要缓存-->
+                <router-view v-if="!$route.meta.keepAlive"/>
             </div>
         </div>
     </div>

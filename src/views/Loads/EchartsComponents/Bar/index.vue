@@ -17,13 +17,7 @@ import "../../../../styles/EchartsTheme/roma.js";
 import { reactive, onMounted, watch } from "@vue/composition-api";
 export default {
   name: "LoadsBar",
-  props :{
-    config:{
-      type:Object,
-      default:()=>{}
-    }
-  },
-  setup(props, { root }) {
+  setup(props, { root,emit }) {
     const data = reactive({
       res:props.config,
       xData:[],
@@ -136,31 +130,35 @@ export default {
     }
     const fetchData = () =>{
       var resData = data.res['resultData']
-      var keys = Object.keys(resData)[0]
+      let _legendData = []
+      let _legendColor = {}
+      let _series = []
       Object.keys(resData).forEach((key,index) =>{
-        if(!data.legendData.includes(key)){
-          data.legendColor[key] = data.colors[data.legendData.length]
-          data.legendData.push(key)
+        if(!_legendData.includes(key)){
+          _legendColor[key] = data.colors[_legendData.length]
+          _legendData.push(key)
         }
         let infoDetail = resData[key]
         Object.keys(infoDetail).forEach((subkey,subindex)=>{
-
           let obj = {
             name:mapSeason(subkey),
             type:'bar',
             smooth:true,
             dbname:key,
-            color:data.legendColor[key],
+            color:_legendColor[key],
             data:infoDetail[subkey]['value_list']
           }
-          data.series.push(obj)
+          _series.push(obj)
+          data.legendData = _legendData
+          data.legendColor = _legendColor
+          data.series = _series
         })
       })
-
       data.xData = data.res['Date']
       DrawLine()
     }
     const changeLegend = ((item,e)=>{
+      console.log(data.legendColor)
       let _obj = {}
       let len = data.series.length
       let _data = data.series
@@ -182,10 +180,10 @@ export default {
       data.storage[item] = _obj;
       DrawLine()
     })
-    onMounted(()=>{
-        console.log(data.res)
-        // data.res = props.config
-        fetchData()
+    watch(()=> root.$store.getters["loads/resultData"],()=>{
+      emit("ParentshowResult")
+      data.res =  root.$store.getters["loads/resultData"]
+      fetchData()
     })
 
     return {

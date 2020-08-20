@@ -3,7 +3,7 @@
         <el-row :gutter="20">
             <el-col :span="12" >
                 <div>
-                   <LoadsBar :config.sync="data.config"  class="cardChart"/>        
+                   <LoadsBar class="cardChart" @ParentshowResult="showResult"/>        
                 </div>
             </el-col>
             <el-col :span="12" >
@@ -19,7 +19,7 @@
                         <span class="TableTitle">区域负荷及耗热量统计表</span>
                     </el-divider>
                     <div class="blanck-space-50"></div>
-                    <LoadsTable :config.sync="data.config"/>
+                    <LoadsTable/>
                 </div>
             </el-col>
         </el-row>
@@ -30,19 +30,19 @@ import LoadsBar from "./EchartsComponents/Bar";
 import LoadsPie from "./EchartsComponents/Pie";
 import LoadsTable from "./EchartsComponents/Table";
 
-import { reactive,onMounted,updated, watch } from '@vue/composition-api';
+import { reactive,onMounted, watch, onActivated ,onDeactivated} from '@vue/composition-api';
 export default {
     name:"calResult",
     components:{ LoadsBar,LoadsPie,LoadsTable },
-    setup(props,{root}){
-        const data = reactive({
-            config:root.$route.query.data,
-            reqInfo:{}
-        })
+    setup (props,{root}){
+        const showResult = () => {
+            root.$route.meta.hidden = false
+        }
         return{
-            data
+            showResult
         }
     }
+
 }
 </script>
 <style lang="scss" scoped>
