@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
             if(store.getters["app/roles"].length === 0){
                 store.dispatch('permission/getRoles').then(response=>{
                     let role = response.role
-                    let button = response.button
+                    // let button = response.button
                     let btnPerm = response.btnPerm
                     store.commit('app/SET_ROLES',role)
                     store.commit('app/SET_BUTTON',btnPerm)
@@ -50,7 +50,6 @@ router.beforeEach((to, from, next) => {
         }
 
     } else {
-        console.log('不存在')
         if (whiteRouter.indexOf(to.path) !== -1) {
             next()
         } else {

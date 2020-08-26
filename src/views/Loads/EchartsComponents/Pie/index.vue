@@ -9,7 +9,7 @@ import "../../../../styles/EchartsTheme/roma.js";
 import { reactive, onMounted, watch } from '@vue/composition-api'
 export default {
     name:"LoadsPie",
-    setup(props,{root}){
+    setup(props,{root,emit}){
         const data = reactive({
             dataset:{
                 source:[['status'],['0~25%'],['25%~50%'],['50%~75%'],['75%~100%']]

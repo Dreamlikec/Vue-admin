@@ -12,7 +12,7 @@
               <el-select placeholder="请选择城市" size="small" v-model="data.city">
                 <el-option value="北京"></el-option>
                 <el-option value="上海"></el-option>
-                <el-option value="深圳" disabled></el-option>
+                <el-option value="深圳"></el-option>
                 <el-option value="青岛"></el-option>
                 <el-option value="徐州"></el-option>
                 <el-option value="临沂"></el-option>

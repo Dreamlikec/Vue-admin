@@ -32,7 +32,7 @@ export const defaultRouterMap = [
   {
     path: "/",
     redirect: "login",
-    
+    name:"index",
     meta: {
       name: "主页",
       hidden: true,

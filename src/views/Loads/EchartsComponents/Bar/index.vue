@@ -7,7 +7,7 @@
             </li>
         </ul>
     </div>
-    <div id="loads_bar" class="chart"></div>
+    <div id="loads_bar" class="chart" ref="chart"></div>
     </div>
 </template>
 <script>
@@ -17,9 +17,9 @@ import "../../../../styles/EchartsTheme/roma.js";
 import { reactive, onMounted, watch } from "@vue/composition-api";
 export default {
   name: "LoadsBar",
-  setup(props, { root,emit }) {
+  setup(props, {root ,emit ,refs }) {
     const data = reactive({
-      res:props.config,
+      res:{},
       xData:[],
       series:[],
       legendData:[],
@@ -124,6 +124,7 @@ export default {
         series:data.series
       }
       loadsBarchart.setOption(optionData);
+    
     };
     const mapSeason = (season) =>{
       return season == "summer"? "夏季冷负荷":"冬季热负荷"
@@ -180,10 +181,19 @@ export default {
       data.storage[item] = _obj;
       DrawLine()
     })
+
     watch(()=> root.$store.getters["loads/resultData"],()=>{
-      emit("ParentshowResult")
+      // console.log(root.$store.getters["loads/resultData"])
       data.res =  root.$store.getters["loads/resultData"]
-      fetchData()
+      root.$nextTick(()=>{
+        emit("ParentshowResult")
+        fetchData()
+      })
+      
+      
+    },{
+      immediate:true,
+      lazy:true
     })
 
     return {

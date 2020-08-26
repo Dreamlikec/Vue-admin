@@ -15,7 +15,7 @@ import { exportExcel } from "@/utils/common";
 import { reactive, onMounted, onActivated, watch, onUpdated, computed,inject } from "@vue/composition-api";
 export default {
   name: "LoadsTable",
-  setup(props, { root }) {
+  setup(props, { root,emit }) {
     const data = reactive({
       configTable: {
         tHead: [
@@ -57,7 +57,7 @@ export default {
           }
         ],
         loadsHeader :  [],
-        res:props.config,
+        res:{},
         tableData:[]
       }
     });
@@ -176,12 +176,16 @@ export default {
       }
     }
 
-
     watch(()=> root.$store.getters["loads/resultData"],()=>{
-      data.configTable.res =  root.$store.getters["loads/resultData"]
-      formatTable()
-      loadsDismantling()
+        emit("ParentshowResult")
+        data.configTable.res =  root.$store.getters["loads/resultData"]
+        formatTable()
+        loadsDismantling()
+    },{
+      immediate:true,
+      lazy:true
     })
+
     return {
       data,formatTable,isBlank,exportExcel,loadsPercent
     };
