@@ -46,7 +46,6 @@ export default {
         // 选择触发
         const select = (val)=>{
             let filterdata = data.options.filter(item => item.value === val)[0]
-            console.log(filterdata)
             emit("update:selectData",filterdata)
         }
         // 初始化下拉选项
@@ -69,6 +68,8 @@ export default {
             data.initOption = optionArr
             //  初始化搜索类型
             data.selectValue = optionArr[0].value
+            // 返回一个初始值
+            emit("update:selectData",optionArr[0])
         }
         onMounted(()=>{
             initOption()

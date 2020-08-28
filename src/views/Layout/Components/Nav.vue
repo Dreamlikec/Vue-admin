@@ -50,6 +50,7 @@ export default {
   setup(props, context) {
     // data 数据
     const routers = reactive(context.root.$router.options.routes);
+
     // computed 监听isCollapse的状态
     const isCollapse = computed(() => context.root.$store.state.app.isCollapse);
     // context.root.$store.commit('SET_COUNT',100)

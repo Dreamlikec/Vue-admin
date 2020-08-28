@@ -6,7 +6,8 @@ import {getToken,getUserName} from "@/utils/app";
 // 创建axios，付给变量service
 // 手把手撸码前端的地址API，地址: http://www.web-jshtml.cn/productapi
 
-const BASEURL = process.env.NODE_ENV === 'production'? '/devApi':'/devApi';
+// const BASEURL = process.env.NODE_ENV === 'production'? '/productapi':'/devApi';
+const BASEURL = process.env.NODE_ENV === 'production'? process.env.VUE_APP_API: process.env.VUE_APP_API;
 const service = axios.create({
     baseURL:BASEURL,
     timeout:15000,

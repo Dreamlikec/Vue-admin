@@ -76,7 +76,7 @@
 <script>
 import sha1 from "js-sha1";
 import { GetSms, Register, Login } from "@/api/login";
-import { reactive, ref, isRef, toRefs, onMounted } from "@vue/composition-api";
+import { reactive, ref, isRef, toRefs, onMounted, onUnmounted } from "@vue/composition-api";
 import {
   stripscript,
   validateEmail,
@@ -116,6 +116,9 @@ export default {
       resetFormData();
       clearCountDown();
     };
+    onUnmounted(()=>{
+      clearInterval(timer.value)
+    })
     // 重置表单
     const resetFormData = () => {
       context.refs.ruleForm.resetFields();
@@ -136,7 +139,7 @@ export default {
         context.root.$message.error("邮箱格式有误，清重新输入");
         return false;
       }
-      let resData = {
+      let requestData = {
         username: ruleForm.username,
         module: model.value
       };
@@ -149,7 +152,7 @@ export default {
 
       // 延迟多长时间
       setTimeout(() => {
-        GetSms(resData)
+        GetSms(requestData)
           .then(response => {
             let data = response.data;
             context.root.$message({
@@ -160,7 +163,6 @@ export default {
             loginButtionStauts.value = false;
             // 调定时器，倒计时60s
             countDown(60);
-            console.log(data);
           })
           .catch(error => {
             console.log(error);
@@ -202,14 +204,14 @@ export default {
 
     // 注册接口实现
     const register = () => {
-      let resData = {
+      let requestData = {
         username: ruleForm.username,
         password: sha1(ruleForm.password),
         code: ruleForm.code,
         module: "register"
       };
       // 实现注册接口
-      Register(resData)
+      Register(requestData)
         .then(response => {
           let data = response.data;
           context.root.$message({
