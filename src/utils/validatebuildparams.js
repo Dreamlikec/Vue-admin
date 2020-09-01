@@ -6,6 +6,7 @@ export function validateParamsfun(){
     const ParamsData = reactive({
         coldRegion:["北京","青岛","徐州","临沂"],
         shwcRegion:["南京","武汉","长沙","上海"],
+        shwwRegion:["深圳"],
         coldRegionData:{
             AC:{
                 min:0.1,
@@ -43,7 +44,6 @@ export function validateParamsfun(){
                 min:18,
                 max:22
             }
-            
         },
         shwcRegionData:{
             AC:{
@@ -83,6 +83,44 @@ export function validateParamsfun(){
                 max:22
             }
         },
+        shwwRegion:{
+            AC:{
+                min:0.1,
+                max:1
+            },
+            uw:{
+                min:1,
+                max:2
+            },
+            uf:{
+                min:1,
+                max:3
+            },
+            shgc:{
+                min:0.4,
+                max:0.6
+            },
+            glz_n:{
+                min:0.2,
+                max:0.4
+            },
+            glz_ew:{
+                min:0.2,
+                max:0.3
+            },
+            glz_s:{
+                min:0.2,
+                max:0.4
+            },
+            sum_point:{
+                min:25,
+                max:27
+            },
+            win_point:{
+                min:18,
+                max:22
+            }
+        },
         htRange:{
             "北京":["2019-11-15","2020-3-15"],
             "青岛":["2019-11-15","2020-4-5"],
@@ -92,6 +130,7 @@ export function validateParamsfun(){
             "长沙":["2019-11-15","2020-3-15"],
             "南京":["2019-11-15","2020-3-15"],
             "上海":["2019-11-15","2020-2-15"],
+            "深圳":["2019-11-15","2020-2-15"]
         },
         clRange:{
             "北京":["2019-6-15","2020-9-15"],
@@ -102,6 +141,7 @@ export function validateParamsfun(){
             "长沙":["2019-6-15","2020-9-15"],
             "南京":["2019-6-15","2020-9-15"],
             "上海":["2019-6-15","2020-9-30"],
+            "深圳":["2019-6-15","2020-9-30"]
         },
         RecomParams:{
             "青岛":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.2",glz_s:"0.4",AC:"0.1",uw:"0.5",uf:"1.2",shgc:"0.6",sum_point:"25",win_point:"18"}},
