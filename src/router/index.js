@@ -100,6 +100,26 @@ export const defaultRouterMap = [
       component: () => import("../views/Loads/CalResult.vue")
     }]
   },
+  {
+    path: "/configuration",
+    name: "configuration",
+    meta: {
+      keepAlive: true,
+      name: "系统配置",
+      icon: "configuration",
+    },
+    component: Layout,
+    children: [{
+      path: "/sizing",
+      name: "sizing",
+      meta: {
+        role: ['manager'],
+        name: "设备选型",
+        keepAlive: true
+      },
+      component: () => import("../views/configuration/index.vue")
+    }]
+  }
 ]
 
 export default new Router({

@@ -124,7 +124,7 @@ export function validateParamsfun(){
         htRange:{
             "北京":["2019-11-15","2020-3-15"],
             "青岛":["2019-11-15","2020-4-5"],
-            "临沂":["2019-11-10","2020-3-20"],
+            "临沂":["2019-11-5","2020-3-31"],
             "徐州":["2019-11-15","2020-3-15"],
             "武汉":["2019-11-15","2020-3-15"],
             "长沙":["2019-11-15","2020-3-15"],
@@ -145,8 +145,13 @@ export function validateParamsfun(){
         },
         RecomParams:{
             "青岛":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.2",glz_s:"0.4",AC:"0.1",uw:"0.5",uf:"1.2",shgc:"0.6",sum_point:"25",win_point:"18"}},
-            "临沂":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.2",glz_s:"0.5",AC:"0.5",uw:"0.5",uf:"1.2",shgc:"0.6",sum_point:"25",win_point:"20"}},
-            "北京":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.35",glz_s:"0.5",AC:"0.1",uw:"0.5",uf:"1.6",shgc:"0.6",sum_point:"25",win_point:"18"}}
+            "临沂":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.2",glz_s:"0.4",AC:"0.5",uw:"0.5",uf:"1.2",shgc:"0.6",sum_point:"25",win_point:"18"}},
+            // "临沂":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.2",glz_s:"0.4",AC:"0.1",uw:"0.5",uf:"1.2",shgc:"0.6",sum_point:"25",win_point:"18"}},
+            "北京":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.35",glz_s:"0.5",AC:"0.1",uw:"0.5",uf:"1.6",shgc:"0.6",sum_point:"25",win_point:"18"}},
+            "徐州":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.2",glz_s:"0.4",AC:"0.1",uw:"0.5",uf:"1.2",shgc:"0.6",sum_point:"25",win_point:"18"}},
+            "南京":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.2",glz_s:"0.4",AC:"0.5",uw:"0.5",uf:"1.2",shgc:"0.6",sum_point:"25",win_point:"18"}},
+            "武汉":{"住宅建筑":{area:"",glz_n:"0.3",glz_ew:"0.2",glz_s:"0.45",AC:"0.6",uw:"1",uf:"1.5",shgc:"0.6",sum_point:"25",win_point:"18"}},
+            "长沙":{"住宅建筑":{area:"",glz_n:"0.4",glz_ew:"0.2",glz_s:"0.45",AC:"0.5",uw:"1",uf:"2.5",shgc:"0.6",sum_point:"25",win_point:"18"}},
         }
         
     });

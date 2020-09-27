@@ -21,13 +21,20 @@ export default{
         const showParentdiv = ref(true)
         const ifshowfunction = () =>{
             let currentRoute = root.$route.name
+            console.log(currentRoute)
             if(currentRoute === "buildingInfo"){
                return false
             }
-            if(currentRoute === "calresult"){
+            else if(currentRoute === "calresult"){
                 return false
             }
-            return true
+            // else if(currentRoute === "sizing"){
+            //     return false
+            // }
+            else{
+                return true
+            }
+            
         }
         // watch(()=>(root.$route),(val)=>{
         //     let currentRoute = root.$route.name

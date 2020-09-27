@@ -264,7 +264,7 @@ export default {
             });
           loadingData.value = false
           // 存储结果
-
+          console.log(response)
           root.$store.commit("loads/SET_RESULTDATA",JSON.parse(response.data))
         }).catch((err)=>{})
       }

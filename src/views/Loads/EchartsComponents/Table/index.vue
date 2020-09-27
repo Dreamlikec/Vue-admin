@@ -151,6 +151,7 @@ export default {
       var per25to50 = 0
       var per50to75 = 0
       var per75to100 = 0
+      
       var maxval = Math.max(...valuelist)
       for(let i=0;i<valuelist.length;i++){
         if(valuelist[i]<=maxval *0.25){
