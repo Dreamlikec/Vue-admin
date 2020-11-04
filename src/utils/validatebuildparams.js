@@ -7,7 +7,12 @@ export function validateParamsfun(){
         coldRegion:["北京","青岛","徐州","临沂"],
         shwcRegion:["南京","武汉","长沙","上海"],
         shwwRegion:["深圳"],
-        coldRegionData:{
+        buildtypeMatch:{
+            "办公建筑":"Office",
+            "住宅建筑":"Resident",
+            "商业建筑":"Shopping"
+        },
+        coldRegionResidentData:{
             AC:{
                 min:0.1,
                 max:0.5
@@ -45,7 +50,7 @@ export function validateParamsfun(){
                 max:22
             }
         },
-        shwcRegionData:{
+        shwcRegionResidentData:{
             AC:{
                 min:0.1,
                 max:1
@@ -83,7 +88,7 @@ export function validateParamsfun(){
                 max:22
             }
         },
-        shwwRegion:{
+        shwwRegionResidentData:{
             AC:{
                 min:0.1,
                 max:1
@@ -121,6 +126,31 @@ export function validateParamsfun(){
                 max:22
             }
         },
+        coldRegionOfficeData:{
+            height:{min:3.2,max:4.5},
+            glzRatio:{min:0.4,max:0.6},
+            uw:{min:0.4,max:0.6},
+            uf:{min:1.0,max:3.0},
+            air:{min:20,max:30},
+            shgc:{min:0.4,max:0.6},
+            light:{min:8,max:12},
+            equip:{min:10,max:15},
+            sum_point:{min:25,max:27},
+            win_point:{min:18,max:22}
+        },
+        shwcRegionOfficeData:{
+            height:{min:3.2,max:4.5},
+            glzRatio:{min:0.4,max:0.6},
+            uw:{min:0.4,max:0.6},
+            uf:{min:1.0,max:3.0},
+            air:{min:20,max:30},
+            shgc:{min:0.4,max:0.6},
+            light:{min:8,max:12},
+            equip:{min:10,max:15},
+            sum_point:{min:25,max:27},
+            win_point:{min:18,max:22}
+        },
+
         htRange:{
             "北京":["2019-11-15","2020-3-15"],
             "青岛":["2019-11-15","2020-4-5"],
@@ -169,14 +199,15 @@ export function validateParamsfun(){
         })
         return region
     };
-    const validateParam = (region,key,value)=>{
+    const validateParam = (region,buildtype,key,value)=>{
         var message = ""
+        buildtype = ParamsData["buildtypeMatch"][buildtype]
         if(key === "area" && value<0 && value){
-            
             message = "请输入大于0的数" 
         }
         else{
-            var regionData = `${region}Data` 
+            var regionData = `${region}${buildtype}Data`
+            console.log(regionData) 
             let regionOptions = ParamsData[regionData]
             for (let param in regionOptions){
                 if(param === key){

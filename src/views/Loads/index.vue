@@ -79,9 +79,9 @@
               <el-form :model="item.params">
                 <el-form-item style="position:relative;padding-bottom:30px">          
                   <span :class="[item.buildtype?'selectedtype':'']"> 建筑类型:</span>
-                  <el-select placeholder="请选择建筑类型" size="small" v-model="item.buildtype" style="position:absolute;margin-top:30px;left:0px;" :disabled="data.input_disabled">
+                  <el-select placeholder="请选择建筑类型" size="small" v-model="item.buildtype" style="position:absolute;margin-top:30px;left:0px;" :disabled="data.input_disabled" @change="ChangeBuildType(item)">
                     <el-option value="住宅建筑"></el-option>
-                    <el-option value="办公建筑" disabled></el-option>
+                    <el-option value="办公建筑"></el-option>
                     <el-option value="商业建筑" disabled></el-option>
                   </el-select>
                   <a style="display:inline;position:absolute;left:200px;top:30px" href="javascript:;" @click="autoSetRecomParams(data['city'],item)" v-if="item.buildtype!=''" class="autoSetSign">推荐配置</a>
@@ -94,11 +94,13 @@
                       <span :class="[item.params[subindex]?'inputvalid_span':'']"></span>
                       <p class="bg-danger">{{item.warning[subindex]}}</p>
                   </el-form-item>
-                  <div class="pull-right" style="padding:30px 0">
-                    
+
+                  <div class="pull-right" style="padding:20px 0">
                     <el-button size="small" @click="addTab" :disabled="data.input_disabled">添加建筑</el-button>
                     <el-button size="small" type="danger" @click="submit" :disabled="data.input_disabled" :loading="loadingData">负荷计算</el-button>
-                    <el-button size="small" type="primary" @click="resetform(item)" :disabled="data.input_disabled">重置列表</el-button>
+                    <el-button size="small" type="primary" @click="resetform(item)" :disabled="data.input_disabled">重置</el-button>
+
+
                   </div>
                 </div>
               </el-form>
@@ -123,6 +125,7 @@ import { quillEditor } from "vue-quill-editor"; // 调用富文本编辑器
 
 
 export default {
+  
   name: "buildingInfo",
   setup(props, {root}) {
     const loadingData = ref(false)
@@ -201,7 +204,7 @@ export default {
     }
 
     const validate = (builitem,key,value) =>{
-      let message = validateParam(data.region,key,value)
+      let message = validateParam(data.region,builitem.buildtype,key,value)
       builitem.warning[key] = message
     }
     const resetform = (buildinstance) =>{
@@ -217,10 +220,27 @@ export default {
           buildinstance["params"] = JSON.parse(paramslist)
         }     
     }
+    // 根据不同建筑类型加入不同的params元素
+    const ReplaceBuildParams = (editableTable,buildtype) =>{
+
+    }
+
+    const ChangeBuildType = (item) =>{
+      let buildtype = item.buildtype;
+      if(buildtype == "住宅建筑"){
+        item["label"] = {area:"建筑面积(㎡):",glz_n:"窗墙比 (北):",glz_ew:"窗墙比 (东西):",glz_s:"窗墙比 (南):",AC:"换气次数 (AC):",uw:"墙的传热系数 (W/(㎡·℃)):",uf:"窗的传热系数 (W/(㎡·℃)):",shgc:"SHGC:",sum_point:"夏季设定温度 (℃):",win_point:"冬季季设定温度 (℃):"}
+        item["params"]  = {area:"",glz_n:"",glz_ew:"",glz_s:"",AC:"",uw:"",uf:"",shgc:"",sum_point:"",win_point:""}
+        item["warning"] = {area:"",glz_n:"",glz_ew:"",glz_s:"",AC:"",uw:"",uf:"",shgc:"",sum_point:"",win_point:""} 
+      }
+      else if(buildtype == "办公建筑"){
+        item["label"] = {area:"建筑面积(㎡):",height:"层高(m):",glzRatio:"窗墙比:",uw:"墙的传热系数 (W/(㎡·℃)):",uf:"窗的传热系数 (W/(㎡·℃)):",air:"新风量 (m³/h):",shgc:"SHGC:",light:"照明密度(W/㎡):",equip:"设备功率(W/㎡):",sum_point:"夏季设定温度 (℃):",win_point:"冬季季设定温度 (℃):"}
+        item["params"]  = {area:"",height:"",glzRatio:"",uw:"",uf:"",air:"",shgc:"",light:"",equip:"",sum_point:"",win_point:""}
+        item["warning"] = {area:"",height:"",glzRatio:"",uw:"",uf:"",air:"",shgc:"",light:"",equip:"",sum_point:"",win_point:""} 
+      }
+    }
     watch(()=>data.city,(val)=>{
       // 绑定参数的遍历范围
       data.region = bindRegion(val)
-
 
       // 如果选择城市，右边才可以输入
       if(val){
@@ -288,7 +308,10 @@ export default {
       bindRegion,
       autoSethtRange,
       autoSetclRange,
-      autoSetRecomParams
+      autoSetRecomParams,
+
+      ReplaceBuildParams,
+      ChangeBuildType
     };
   }
 };
@@ -328,7 +351,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-content: space-around;
 }
 
@@ -423,6 +446,10 @@ export default {
   padding: 5px;
   display: block;
   height: 30px;
+}
+
+.el-button--small{
+  padding: 8px 12px;
 }
 
 
